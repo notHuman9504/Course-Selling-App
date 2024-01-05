@@ -68,12 +68,27 @@ function SignUp() {
            
                     style={{
                         width:"350px",
-                        marginBlock:"20px",
-                        fontSize:"18px",
+                        marginTop:"20px",
+                        marginBottom:"5px",
+                        fontSize:"15px",
                         backgroundColor:"#202124"
                       }}
                 >
                     Sign Up
+                </Button>
+              </div>
+              <div>
+                <Button variant="contained"
+                size="large"
+           
+                    style={{
+                        width:"350px",
+                        
+                        fontSize:"15px",
+                        backgroundColor:"#202124"
+                      }}
+                >
+                    Admin Sign Up
                 </Button>
               </div>
             </div>
