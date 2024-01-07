@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const jwt=require('jsonwebtoken')
 const mongoose=require('mongoose')
-import {adminKey,userKey,authadminjwt,authuserjwt} from 'Auth.js'
+const {adminKey,userKey,authadminjwt,authuserjwt} = require('./Auth')
 app.use(express.json());
 const cors=require('cors')
 app.use(cors())

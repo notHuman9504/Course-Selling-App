@@ -1,3 +1,4 @@
+const jwt=require('jsonwebtoken')
 const adminKey="Admin Secr3t";
 const userKey="User Secr3t";
 
@@ -38,4 +39,4 @@ const authuserjwt=(req,res,next)=>{
         res.sendStatus(401);
     }
 }
-export {adminKey,userKey,authadminjwt,authuserjwt};
+module.exports ={adminKey,userKey,authadminjwt,authuserjwt};
