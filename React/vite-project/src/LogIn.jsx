@@ -1,13 +1,18 @@
 import * as React from "react";
-
+import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "./store/atoms/user";
 function LogIn() {
     const navigate = useNavigate();
+    const [username,setusername]=React.useState(null);
+    const [password,setpassword]=React.useState(null);
+    const setUserState=useSetRecoilState(userState);
   return (
     <>
       <Card
@@ -49,6 +54,9 @@ function LogIn() {
                     width:"350px",
                     marginBlock:"20px"
                   }}
+                  onChange={(e)=>{
+                    setusername(e.target.value);
+                  }}
                 />
               </div>
               <div>
@@ -60,19 +68,38 @@ function LogIn() {
                   style={{
                     width:"350px"
                   }}
+                  onChange={(e)=>{
+                    setpassword(e.target.value);
+                  }}
                 />
               </div>
               <div>
                 <Button variant="contained"
-                size="large"
-           
-                    style={{
-                        width:"350px",
-                        marginTop:"20px",
-                        marginBottom:"5px",
-                        fontSize:"15px",
-                        backgroundColor:"#202124"
-                      }}
+                  size="large"
+                  style={{
+                      width:"350px",
+                      marginTop:"20px",
+                      marginBottom:"5px",
+                      fontSize:"15px",
+                      backgroundColor:"#202124"
+                  }}
+                  onClick={async ()=>{
+                    const res=await axios.post('http://localhost:3000/users/login',{
+                      id:username,
+                      pass:password
+                    },{
+                      headers:{
+                        "Content-Type":"application/json",
+                      }
+                    })
+                    localStorage.setItem("token",res.data.token);
+                    setUserState({
+                      isLoading:false,
+                      userid:username
+                    })
+                    navigate('/courses');
+                  }}
+
                 >
                     Log In
                 </Button>
@@ -86,6 +113,24 @@ function LogIn() {
                         
                         fontSize:"15px",
                         backgroundColor:"#202124"
+                      }}
+                      onClick={async ()=>{
+                        console.log(username);
+                        const res=await axios.post('http://localhost:3000/admin/login',{
+                          id:username,
+                          pass:password
+                        },{
+                          headers:{
+                            "Content-Type":"application/json",
+                          }
+                        })
+                        localStorage.setItem("token",res.data.token);
+                        setUserState({
+                          isLoading:false,
+                          userid:username
+                        })
+                       
+                        navigate('/admcourse');
                       }}
                 >
                     Admin Log In

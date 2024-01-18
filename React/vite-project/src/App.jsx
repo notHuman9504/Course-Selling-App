@@ -7,6 +7,8 @@ import {
 } from 'recoil';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
+import AdminCourse from './AdminCourse';
+import Courses from './Courses';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<LogIn/>}/>
+          <Route path="/admcourse" element={<AdminCourse/>}/>
+          <Route path="/courses" element={<Courses/>}/>
           
           <Route path="/" element={<Landing/>}/>
         </Routes>

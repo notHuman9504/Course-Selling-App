@@ -57,19 +57,24 @@ app.post('/admin/signup',async (req, res) => {
 });
 
 app.post('/admin/login', async(req, res) => {
-    let id=req.body.id;
-    let pass=req.body.pass;
+    let {id,pass}=req.body;
+    
     let exist=await admin.findOne({id});
     if(exist)
     {
         if(exist.pass==pass)
         {
-            const token =generatejwt(req.user.id,adminKey)
+            const token =generatejwt(id,adminKey)
             res.json({ message: 'Logged in successfully',token }); 
         }
+        else
+        {
+            res.send("log in failed");
+        }
     }
-
-    res.send("Log In Failed");
+    else{
+        res.send("Log In Failed");
+    }
 });
 
 app.post('/admin/courses',authadminjwt, async (req, res) => {
@@ -142,10 +147,12 @@ app.post('/users/login', async(req, res) => {
     let exist=await user.findOne({id,pass});
     if(exist)
     {
-        const token =generatejwt(req.user.id,userKey)
+        const token =generatejwt(id,userKey)
         res.json({ message: 'Logged in successfully',token });
     }
-    res.send("login failed");
+    else{
+        res.send("login failed");
+    }
 });
 
 app.get('/users/courses', authuserjwt,async (req, res) => {
