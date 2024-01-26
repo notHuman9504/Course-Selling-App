@@ -3,6 +3,7 @@ const adminKey="Admin Secr3t";
 const userKey="User Secr3t";
 
 const authadminjwt=(req,res,next)=>{
+    
     const authHeader = req.headers.authorization;
 
     if (authHeader) {
@@ -23,7 +24,7 @@ const authadminjwt=(req,res,next)=>{
 
 const authuserjwt=(req,res,next)=>{
     const authHeader = req.headers.authorization;
-
+    
     if (authHeader) {
         const token = authHeader.split(' ')[1];
 

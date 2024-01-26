@@ -28,7 +28,7 @@ function Appfunc(){
   const navigate = useNavigate();
   const setUser=useSetRecoilState(userState);
   const id=useRecoilValue(userState).userid;
-  if(!id)
+  if(id==null)
   {
     return(<Button color="inherit" onClick={()=>{
       navigate("/login")

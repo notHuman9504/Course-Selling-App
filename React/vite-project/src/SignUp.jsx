@@ -1,13 +1,17 @@
 import * as React from "react";
-
+import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "./store/atoms/user";
 function SignUp() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [username,setusername]=React.useState(null);
+  const [password,setpassword]=React.useState(null);
+  const setUserState=useSetRecoilState(userState);
   return (
     <>
       <Card
@@ -49,6 +53,9 @@ function SignUp() {
                     width:"350px",
                     marginBlock:"20px"
                   }}
+                  onChange={(e)=>{
+                    setusername(e.target.value);
+                  }}
                 />
               </div>
               <div>
@@ -60,19 +67,46 @@ function SignUp() {
                   style={{
                     width:"350px"
                   }}
+                  onChange={(e)=>{
+                    setpassword(e.target.value);
+                  }}
                 />
               </div>
               <div>
                 <Button variant="contained"
                 size="large"
-           
-                    style={{
-                        width:"350px",
-                        marginTop:"20px",
-                        marginBottom:"5px",
-                        fontSize:"15px",
-                        backgroundColor:"#202124"
-                      }}
+                  style={{
+                      width:"350px",
+                      marginTop:"20px",
+                      marginBottom:"5px",
+                      fontSize:"15px",
+                      backgroundColor:"#202124"
+                    }}
+                    onClick={async ()=>{
+                      const res=await axios.post('http://localhost:3000/users/signup',{
+                        id:username,
+                        pass:password
+                      },{
+                        headers:{
+                          "Content-Type":"application/json",
+                        }
+                      })
+  
+                      if(!res.data.token)
+                          {
+                            alert("SignUp Failed!");
+                            return;
+                          }
+                          
+                      localStorage.setItem("token",res.data.token);
+                      setUserState({
+                        isLoading:false,
+                        userid:username
+                      })
+                      navigate('/courses');
+                    }}
+
+                  
                 >
                     Sign Up
                 </Button>
@@ -80,12 +114,34 @@ function SignUp() {
               <div>
                 <Button variant="contained"
                 size="large"
-           
                     style={{
                         width:"350px",
                         
                         fontSize:"15px",
                         backgroundColor:"#202124"
+                      }}
+                      onClick={async ()=>{
+                      
+                        const res=await axios.post('http://localhost:3000/admin/signup',{
+                          id:username,
+                          pass:password
+                        },{
+                          headers:{
+                            "Content-Type":"application/json",
+                          }
+                        })
+                        if(!res.data.token)
+                        {
+                          alert("SignUp Failed!");
+                          return;
+
+                        }
+                        localStorage.setItem("token",res.data.token);
+                        setUserState({
+                          isLoading:false,
+                          userid:username
+                        })
+                        navigate('/admcourse');
                       }}
                 >
                     Admin Sign Up

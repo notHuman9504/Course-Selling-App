@@ -92,6 +92,14 @@ function LogIn() {
                         "Content-Type":"application/json",
                       }
                     })
+
+                    if(!res.data.token)
+                        {
+                          alert("Login Failed!");
+                          return;
+
+                        }
+                        
                     localStorage.setItem("token",res.data.token);
                     setUserState({
                       isLoading:false,
@@ -115,7 +123,7 @@ function LogIn() {
                         backgroundColor:"#202124"
                       }}
                       onClick={async ()=>{
-                        console.log(username);
+                      
                         const res=await axios.post('http://localhost:3000/admin/login',{
                           id:username,
                           pass:password
@@ -124,6 +132,12 @@ function LogIn() {
                             "Content-Type":"application/json",
                           }
                         })
+                        if(!res.data.token)
+                        {
+                          alert("Login Failed!");
+                          return;
+
+                        }
                         localStorage.setItem("token",res.data.token);
                         setUserState({
                           isLoading:false,

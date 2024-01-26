@@ -77,8 +77,7 @@ app.post('/admin/login', async(req, res) => {
     }
 });
 
-app.post('/admin/courses',authadminjwt, async (req, res) => {
-
+app.post('/admin/addcourse',authadminjwt, async (req, res) => {
   const crcs =new course(req.body);;
 
   
@@ -111,8 +110,8 @@ app.get('/admin/courses', authadminjwt,async (req, res) => {
         res.status(403).json({ message: 'User not found' });
       }
 });
-// me route
-app.get('admin/me',authadminjwt,(req,res)=>{
+// me route 
+app.get('/admin/me',authadminjwt,(req,res)=>{
     res.json(
         {username:req.user.id}
     )
@@ -158,7 +157,7 @@ app.post('/users/login', async(req, res) => {
 app.get('/users/courses', authuserjwt,async (req, res) => {
   // logic to list all courses
   const courses = await course.find({});
-  res.json(courses);
+  res.json({courses});
   
 });
 
@@ -189,7 +188,7 @@ app.get('/users/purchasedCourses', authuserjwt,async (req, res) => {
     res.status(403).json({ message: 'User not found' });
   }
 });
-app.get('user/me',authuserjwt,(req,res)=>{
+app.get('/user/me',authuserjwt,(req,res)=>{
     res.json(
         {username:req.user.id}
     )
