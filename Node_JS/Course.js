@@ -117,6 +117,18 @@ app.get('/admin/me',authadminjwt,(req,res)=>{
     )
 })
 
+app.get('/get/course/:id',authadminjwt,async(req,res)=>{
+    const crs = await course.findById(req.params.id)
+    if(crs)
+    {
+        res.json({crs});
+    }
+    else
+    {
+        res.send("course not found");
+    }
+})
+
 // User routes
 
 

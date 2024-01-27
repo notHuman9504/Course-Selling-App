@@ -85,7 +85,6 @@ function AddCourse() {
               label="Price"
               variant="outlined"
               type="number"
- 
               onChange={(e)=>{
                 setprice(e.target.value);
               }}

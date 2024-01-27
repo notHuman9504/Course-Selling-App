@@ -14,6 +14,7 @@ import Courses from './Courses';
 import AddCourse from './AddCourse';
 import { userState } from './store/atoms/user';
 import PurchasedCourse from './PurchasedCourse';
+import EditCourse from './EditCourse';
 function App() {
   return (
     
@@ -31,6 +32,7 @@ function App() {
           <Route path="/courses" element={<Courses/>}/>
           <Route path="/addcourses" element={<AddCourse/>}/>
           <Route path="/mycourse" element={<PurchasedCourse/>}/>
+          <Route path="/editcourse/:cid" element={<EditCourse/>}/>
           
           <Route path="/" element={<Landing/>}/>
         </Routes>

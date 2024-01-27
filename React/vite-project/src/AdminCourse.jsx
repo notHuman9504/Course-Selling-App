@@ -76,11 +76,14 @@ function AdminCourse() {
                     marginBlock:"20px"
                   }}>
                     <Div style={{fontSize:"large"}}>{course.title}</Div>
-                    <div> <img src={course.imgLink} alt="#" style={{width:"100%"}} /></div>
+                    <div> <img src={course.imgLink} alt="#" style={{width:"100%",aspectRatio:"2"}} /></div>
                     <Div>{course.description}</Div>
                     <Div>Price:{course.price}</Div>
-                    <Button variant="contained" style={{backgroundColor:"#202124"}}>Edit</Button>
-                    <Button variant="contained" style={{backgroundColor:"#202124",margin:"10px"}}>Delete</Button>
+                    <Button variant="contained" style={{backgroundColor:"#202124"}}
+                    onClick={()=>{
+                      navigate('/editcourse/'+course._id);
+                    }}
+                    >Edit</Button>
                     
                   </div>
                 </div>
