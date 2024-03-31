@@ -7,5 +7,3 @@ export const userState = atom({
     userid: null,
   },
 });
-
-  
